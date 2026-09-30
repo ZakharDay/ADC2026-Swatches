@@ -1,0 +1,27 @@
+<%= form_with(model: fill) do |form| %>
+  <% if fill.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(fill.errors.count, "error") %> prohibited this fill from being saved:</h2>
+
+      <ul>
+        <% fill.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :swatch_id, style: "display: block" %>
+    <%= form.select :swatch_id, current_user.swatches.collect { |p| [ p.name, p.id ] }, include_blank: 'Выберите палитру' %>
+  </div>
+
+  <div>
+    <%= form.label :color, style: "display: block" %>
+    <%= form.color_field :color %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

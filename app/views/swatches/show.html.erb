@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<h2><%= link_to @swatch.name, @swatch %></h2>
+<p><%= @swatch.description %></p>
+
+<div>
+  <%= link_to "Edit this swatch", edit_swatch_path(@swatch) %> |
+  <%= link_to "Back to swatches", swatches_path %>
+  <%= link_to "Destroy this swatch", @swatch, data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+</div>
+
+<br><hr><br>
+
+<div class="fills">
+  <%= render @swatch.fills %>
+</div>

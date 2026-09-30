@@ -1,0 +1,19 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Fills" %>
+
+<h1>Fills</h1>
+<%= link_to "New fill", new_fill_path %>
+
+<br><br>
+<hr>
+<br>
+
+<div id="fills">
+  <% @fills.each do |fill| %>
+    <%= render fill %>
+    <p>
+      <%= link_to "Show this fill", fill %>
+    </p>
+  <% end %>
+</div>
