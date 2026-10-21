@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h2><%= link_to @project.name, [:admin, @project] %></h2>
+<p><%= @project.description %></p>
+
+<div>
+  <%= link_to "Edit this project", edit_admin_project_path(@project) %> |
+  <%= link_to "Back to projects", admin_projects_path %>
+  <%= link_to "Destroy this project", [:admin, @project], data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+</div>
+
+<br><hr><br>
+
+<%= render @project.swatches %>
