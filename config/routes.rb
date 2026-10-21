@@ -1,7 +1,15 @@
 Rails.application.routes.draw do
-  resources :fills
-  resources :swatches
-  resources :projects
+  resources :subscriptions, only: :create
+
+  namespace :admin do
+    resources :subscriptions, only: :index
+
+    resources :fills
+    resources :swatches
+    resources :projects
+
+    root "home#index"
+  end
 
   devise_for :users
   
@@ -16,5 +24,6 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
+  get "welcome/about"
   root "welcome#index"
 end

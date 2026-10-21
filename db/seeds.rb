@@ -3,10 +3,11 @@
 def seed
   remove_schema_file
   reset_db
-  create_users
-  create_projects(100)
-  create_swatches(2..8)
-  create_fills(2..8)
+  create_admin
+  # create_users
+  # create_projects(100)
+  # create_swatches(2..8)
+  # create_fills(2..8)
 end
 
 def reset_db
@@ -28,6 +29,17 @@ def get_random_color
   end
 
   color_hex.join('')
+end
+
+def create_admin
+  user_data = {
+    email: "admin@email.com",
+    password: "testtest",
+    admin: true
+  }
+
+  user = User.create!(user_data)
+  puts "Admin created with id #{user.id}"
 end
 
 def create_users
