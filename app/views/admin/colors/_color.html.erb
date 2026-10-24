@@ -1,0 +1,9 @@
+<%= link_to [:admin, color], class: "fillCard", id: dom_id(color) do %>
+  <div class="fillColor" style="background-color: #<%= color.rgb_hash %>"></div>
+
+  <div class="fillCardInfo">
+    <div class="fillColorHex">
+      #<%= color.rgb_hash %>
+    </div>
+  </div>
+<% end %>

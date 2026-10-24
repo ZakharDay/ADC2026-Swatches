@@ -7,4 +7,5 @@ class User < ApplicationRecord
   has_many :projects, dependent: :destroy
   has_many :swatches, dependent: :destroy
   has_many :fills, dependent: :destroy
+  has_many :colors, dependent: :destroy
 end

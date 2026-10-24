@@ -1,9 +1,9 @@
 <%= link_to [:admin, fill], class: "fillCard", id: dom_id(fill) do %>
-  <div class="fillColor" style="background-color: <%= fill.color %>"></div>
+  <div class="fillColor" style="<%= get_css_background_rule(fill) %>"></div>
 
   <div class="fillCardInfo">
     <div class="fillColorHex">
-      <%= fill.color %>
+      Colors: <%= fill.colors.count %>
     </div>
   </div>
 <% end %>

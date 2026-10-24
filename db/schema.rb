@@ -10,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_14_101524) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_21_092520) do
+  create_table "colors", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "rgb_hash"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_colors_on_user_id"
+  end
+
+  create_table "fill_colors", force: :cascade do |t|
+    t.integer "fill_id", null: false
+    t.integer "color_id", null: false
+    t.integer "alpha", default: 100
+    t.integer "stop"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["color_id"], name: "index_fill_colors_on_color_id"
+    t.index ["fill_id"], name: "index_fill_colors_on_fill_id"
+  end
+
   create_table "fills", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "swatch_id"
@@ -60,6 +79,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_14_101524) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "colors", "users"
+  add_foreign_key "fill_colors", "colors"
+  add_foreign_key "fill_colors", "fills"
   add_foreign_key "fills", "swatches"
   add_foreign_key "fills", "users"
   add_foreign_key "projects", "users"

@@ -4,9 +4,10 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :subscriptions, only: :index
 
-    resources :fills
-    resources :swatches
     resources :projects
+    resources :swatches
+    resources :fills
+    resources :colors
 
     root "home#index"
   end

@@ -4,10 +4,12 @@ def seed
   remove_schema_file
   reset_db
   create_admin
-  # create_users
-  # create_projects(100)
-  # create_swatches(2..8)
-  # create_fills(2..8)
+  create_users
+  create_colors(100)
+  create_projects(10)
+  create_swatches(2..8)
+  create_fills(2..8)
+  add_colors_to_fills
 end
 
 def reset_db
@@ -58,6 +60,14 @@ def create_users
   end
 end
 
+def create_colors(quantity)
+  quantity.times do
+    user = User.all.sample
+    color = user.colors.create!(rgb_hash: "#{get_random_color}")
+    puts "Color with id #{color.id} just created"
+  end
+end
+
 def create_projects(quantity)
   i = 1
 
@@ -95,10 +105,61 @@ def create_fills(quantity)
   swatches.each do |swatch|
     quantity.to_a.sample.times do
       user = swatch.user
-      fill = swatch.fills.create!(user_id: user.id, color: "##{get_random_color}")
+      fill = swatch.fills.create!(user_id: user.id)
       puts "Fill with id #{fill.id} for swatch with id #{fill.swatch.id} just created"
       i += 1
     end
+  end
+end
+
+def add_colors_to_fills
+  Fill.all.each do |fill|
+    type = ['solid', 'gradient'].sample
+
+    if type == 'solid'
+      create_solid_color(fill)
+    elsif type == 'gradient'
+      create_gradient_color(fill)
+    end
+  end
+end
+
+def create_solid_color(fill)
+  color = Color.all.sample
+  fill.colors << color
+
+  puts "Color #{color.rgb_hash} just added to fill with id #{fill.id}"
+end
+
+def create_gradient_color(fill)
+  quantity = (2..5).to_a.sample
+  first_stop = (0..40).to_a.sample
+  last_stop = (60..100).to_a.sample
+
+  if quantity > 2
+    range = last_stop - first_stop
+    step = range / (quantity - 1)
+  end
+
+  i = 1
+
+  quantity.times do
+    stop = 0
+
+    if i == 1
+      stop = first_stop
+    elsif i == quantity
+      stop = last_stop
+    else
+      stop = first_stop + (step * (i - 1))
+    end
+    
+    color = Color.all.sample
+    fill_color = FillColor.create!(fill: fill, color: color, stop: stop)
+
+    puts "Color #{color.rgb_hash} just added to fill with id #{fill.id}"
+
+    i += 1
   end
 end
 
