@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  namespace :api, format: "json" do
+    namespace :v1 do
+      get "welcome/index"
+      get "welcome/about"
+    end
+  end
+
   resources :subscriptions, only: :create
 
   namespace :admin do
